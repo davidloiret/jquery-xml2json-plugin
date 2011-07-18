@@ -110,7 +110,22 @@
    // Core Function End
    // Utility functions
    var jsVar = function(s){ return String(s || '').replace(/-/g,"_"); };
-   var isNum = function(s){ return (typeof s == "number") || String((s && typeof s == "string") ? s : '').test(/^((-)?([0-9]*)((\.{0,1})([0-9]+))?$)/); };
+   
+			// NEW isNum function: 01/09/2010
+			// Thanks to Emile Grau, GigaTecnologies S.L., www.gigatransfer.com, www.mygigamail.com
+			function isNum(s){
+				// based on utility function isNum from xml2json plugin (http://www.fyneworks.com/ - diego@fyneworks.com)
+				// few bugs corrected from original function :
+				// - syntax error : regexp.test(string) instead of string.test(reg)
+				// - regexp modified to accept  comma as decimal mark (latin syntax : 25,24 )
+				// - regexp modified to reject if no number before decimal mark  : ".7" is not accepted
+				// - string is "trimmed", allowing to accept space at the beginning and end of string
+				var regexp=/^((-)?([0-9]+)(([\.\,]{0,1})([0-9]+))?$)/
+				return (typeof s == "number") || regexp.test(String((s && typeof s == "string") ? jQuery.trim(s) : ''));
+			};
+			// OLD isNum function: (for reference only)
+			//var isNum = function(s){ return (typeof s == "number") || String((s && typeof s == "string") ? s : '').test(/^((-)?([0-9]*)((\.{0,1})([0-9]+))?$)/); };
+																
    var myArr = function(o){
     if(!o.length) o = [ o ]; o.length=o.length;
     // here is where you can attach additional functionality, such as searching and sorting...
