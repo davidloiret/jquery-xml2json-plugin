@@ -1,5 +1,5 @@
 /*
- ### jQuery XML to JSON Plugin v1.0 - 2008-07-01 ###
+ ### jQuery XML to JSON Plugin v1.1 - 2008-07-01 ###
  * http://www.fyneworks.com/ - diego@fyneworks.com
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -58,8 +58,12 @@
         obj = obj || {};
         if(obj[cnn]){
          /*DBG*/ //if(window.console) console.log(['x2j',nn,'node>f',cnn,'ARRAY']);
-         if(!obj[cnn].length) obj[cnn] = myArr(obj[cnn]);
-         obj[cnn][ obj[cnn].length ] = parseXML(cn, true/* simple */);
+         
+									// http://forum.jquery.com/topic/jquery-jquery-xml2json-problems-when-siblings-of-the-same-tagname-only-have-a-textnode-as-a-child
+									if(!obj[cnn].length) obj[cnn] = myArr(obj[cnn]);
+									obj[cnn] = myArr(obj[cnn]);
+         
+									obj[cnn][ obj[cnn].length ] = parseXML(cn, true/* simple */);
          obj[cnn].length = obj[cnn].length;
         }
         else{
@@ -79,8 +83,12 @@
        att[atn] = atv;
        if(obj[atn]){
         /*DBG*/ //if(window.console) console.log(['x2j',nn,'attr>',atn,'ARRAY']);
-        if(!obj[atn].length) obj[atn] = myArr(obj[atn]);//[ obj[ atn ] ];
-        obj[atn][ obj[atn].length ] = atv;
+        
+								// http://forum.jquery.com/topic/jquery-jquery-xml2json-problems-when-siblings-of-the-same-tagname-only-have-a-textnode-as-a-child
+								//if(!obj[atn].length) obj[atn] = myArr(obj[atn]);//[ obj[ atn ] ];
+        obj[cnn] = myArr(obj[cnn]);
+								
+								obj[atn][ obj[atn].length ] = atv;
         obj[atn].length = obj[atn].length;
        }
        else{
@@ -127,8 +135,12 @@
 			//var isNum = function(s){ return (typeof s == "number") || String((s && typeof s == "string") ? s : '').test(/^((-)?([0-9]*)((\.{0,1})([0-9]+))?$)/); };
 																
    var myArr = function(o){
-    if(!o.length) o = [ o ]; o.length=o.length;
-    // here is where you can attach additional functionality, such as searching and sorting...
+    
+				// http://forum.jquery.com/topic/jquery-jquery-xml2json-problems-when-siblings-of-the-same-tagname-only-have-a-textnode-as-a-child
+				//if(!o.length) o = [ o ]; o.length=o.length;
+    if(!$.isArray(o)) o = [ o ]; o.length=o.length;
+				
+				// here is where you can attach additional functionality, such as searching and sorting...
     return o;
    };
    // Utility functions End
