@@ -170,11 +170,11 @@
    //return $(xml)[0];
    var out;
    try{
-    var xml = (($.browser && $.browser.msie) || $.support.opacity)?new ActiveXObject("Microsoft.XMLDOM"):new DOMParser();
+    var xml = ((!$.support.opacity && !$.support.style))?new ActiveXObject("Microsoft.XMLDOM"):new DOMParser();
     xml.async = false;
    }catch(e){ throw new Error("XML Parser could not be instantiated") };
    try{
-    if(($.browser && $.browser.msie) || $.support.opacity) out = (xml.loadXML(str))?xml:false;
+    if((!$.support.opacity && !$.support.style)) out = (xml.loadXML(str))?xml:false;
     else out = xml.parseFromString(str, "text/xml");
    }catch(e){ throw new Error("Error parsing XML string") };
    return out;
