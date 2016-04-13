@@ -1,0 +1,1 @@
+The XML to JSON Plugin (jQuery.xml2json) is a script you can use to convert simple XML into a JSON object.
